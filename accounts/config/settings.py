@@ -128,7 +128,7 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 # 이메일 발송 설정
-DEFAULT_FROM_EMAIL = "redgreen32@naver.com"
+DEFAULT_FROM_EMAIL = ""
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.naver.com"
 EMAIL_USE_TLS = False
