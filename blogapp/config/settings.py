@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-s(nh1u!&=uvkk7it7zr&hlsn46(ow^7#yh8a^n#s(sf^&ekwu2"
+SECRET_KEY = "django-insecure-ytsg1!)qy2)q4cv+=(l!%due@%66@t150^ab2r3l0e71@-5c!b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "blogs",
     "users",
-    "book",
 ]
 
 MIDDLEWARE = [
@@ -124,3 +124,14 @@ STATICFILES_DIRS = [BASE_DIR, "static"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 이미지 저장
+MEDIA_URL = "/media/"
+MEDIA_ROOT = Path(BASE_DIR, "media")
+
+# User 모델은 직접 작성한 User 사용하기
+AUTH_USER_MODEL = "users.User"
+
+# 로그인, 로그아웃 성공 시 경로 변경
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

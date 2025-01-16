@@ -17,14 +17,20 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from blogs.views import blogs_list
 from django.views.generic.base import RedirectView
-from book.views import *
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", HomeView.as_view(), name="home"),
+    path("blogs/", include("blogs.urls")),
     path("users/", include("users.urls")),
-    path("books/", include("book.urls")),
-    # RedirectView == redirect()
-    # path("", RedirectView.as_view(pattern_name="home")),
+    # http://127.0.0.1:8000/ => http://127.0.0.1:8000/blogs 요청과 동일한 페이지 보여주기
+    # 방법 1) blogs의 views 연결하기 => 요청 주소 그대로 사용
+    # path("", blogs_list, name="home"),
+    # 방법 2) RedirectView 사용하기 => 리다이렉트한 주소로 변경
+    path("", RedirectView.as_view(pattern_name="blogs:list")),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
