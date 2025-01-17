@@ -13,6 +13,19 @@ class Post(models.Model):
     )
     created_at = models.DateTimeField(verbose_name="작성날짜", auto_now_add=True)
     modified_at = models.DateTimeField(verbose_name="수정날짜", auto_now=True)
+    likes = models.ManyToManyField(User, related_name="likes", blank=True)
 
     def __str__(self):
         return self.title
+
+
+# 원본글, 작성자, 내용, 작성날짜, 수정날짜
+class Comment(models.Model):
+    post = models.ForeignKey(Post, verbose_name="원본글", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="작성자", on_delete=models.CASCADE)
+    content = models.TextField(verbose_name="내용")
+    created_at = models.DateTimeField(verbose_name="작성날짜", auto_now_add=True)
+    modified_at = models.DateTimeField(verbose_name="수정날짜", auto_now=True)
+
+    def __str__(self):
+        return f"{self.id} - {self.user}"
