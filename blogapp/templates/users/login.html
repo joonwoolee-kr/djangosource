@@ -5,11 +5,11 @@
     {% include "form_errors.html" %}
     {% csrf_token %}
     <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="text" class="form-control" id="email" placeholder="email" name="username">
+      <label for="email" class="form-label">email</label>
+      <input type="email" class="form-control" id="email" placeholder="email" name="username">
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">password</label>
       <input type="password" class="form-control" id="password" placeholder="password" name="password">
     </div>
     <button class="btn btn-primary">로그인</button>

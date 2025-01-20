@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField(verbose_name='내용')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='작성날짜')),
-                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='수정날짜')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('modified_at', models.DateTimeField(auto_now=True)),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blogs.post', verbose_name='원본글')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='작성자')),
             ],

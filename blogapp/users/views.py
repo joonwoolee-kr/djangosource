@@ -7,7 +7,7 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            # user에 gender 요소가 비어있는지 확인
+            # user 의 gender 요소가 비어있는지 확인
             if form.cleaned_data["gender"] == "":
                 user.gender = 2
             user.save()

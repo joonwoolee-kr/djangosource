@@ -26,11 +26,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("blogs/", include("blogs.urls")),
     path("users/", include("users.urls")),
-    # http://127.0.0.1:8000/ => http://127.0.0.1:8000/blogs 요청과 동일한 페이지 보여주기
-    # 방법 1) blogs의 views 연결하기 => 요청 주소 그대로 사용
+    # http://127.0.0.1:8000/ => http://127.0.0.1:8000/blogs/ 요청과 동일한 페이지 보여주기
+    # 방법1) blogs 의 views 연결하기 : 요청주소 그대로 사용
     # path("", blogs_list, name="home"),
-    # 방법 2) RedirectView 사용하기 => 리다이렉트한 주소로 변경
+    # 방법2) RedirectView 사용하기 : 요청주소 => blogs list 주소로 변경
     path("", RedirectView.as_view(pattern_name="blogs:list")),
 ]
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

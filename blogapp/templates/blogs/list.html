@@ -2,20 +2,19 @@
 {% block content %}
   <div class="row gx-4 gx-lg-5 justify-content-center">
     <div class="col-md-10 col-lg-8 col-xl-7">
-      {% comment %} {% if user.is_authenticated %}
-      <a href="{% url "blogs:create" %}" class="btn btn-primary">새글작성</a>
-      {% endif %} {% endcomment %}
+      {% if user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url "blogs:create" %}">새글작성</a>
+      {% endif %}
       <!-- Post preview-->
-      {% for post in posts %}
+      {% for post in post_list %}
         <div class="post-preview">
-          <a href="{% url "blogs:detail" post.id %}">
+          <a href="{% url "blogs:detail" post.pk %}">
             <h2 class="post-title">{{post.title}}</h2>
+            <p>{{post.content|truncatechars:50}}</p>
           </a>
-          <p>{{post.content|truncatechars:50}}</p>
-          <p class=" post-meta">
+          <p class="post-meta">
             Posted by
-            <a href="">{{post.user.name}}</a>
-            on
+            <a href="#!">{{post.user.name}}</a>
             {{post.created_at}}
           </p>
         </div>
@@ -24,7 +23,19 @@
       {% endfor %}
       <!-- Pager-->
       <div class="d-flex justify-content-end mb-4">
-        <a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a>
+        {% if post_list.has_previous %}
+          <a class="btn btn-primary text-uppercase" href="?page={{post_list.previous_page_number}}">← Previous Posts</a>
+        {% endif %}
+        <!-- 2 / 30 -->
+        <a class="btn btn-primary text-uppercase" href="#">
+          {{post_list.number}}
+          /
+          {{post_list.paginator.num_pages}}
+        </a>
+
+        {% if post_list.has_next %}
+          <a class="btn btn-primary text-uppercase" href="?page={{post_list.next_page_number}}">Next Posts →</a>
+        {% endif %}
       </div>
     </div>
   </div>

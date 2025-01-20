@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-ytsg1!)qy2)q4cv+=(l!%due@%66@t150^ab2r3l0e71@-5c!b"
+SECRET_KEY = "django-insecure-l3!5mg(dpcn2j)-2@i#m@bd!snzuhg&v6lj_2ltkanjnx0#8g%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blogs",
     "users",
+    "taggit",
+    "django_social_share",
 ]
 
 MIDDLEWARE = [
@@ -118,7 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR, "static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -129,9 +132,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(BASE_DIR, "media")
 
+
 # User 모델은 직접 작성한 User 사용하기
 AUTH_USER_MODEL = "users.User"
 
-# 로그인, 로그아웃 성공 시 경로 변경
+# 로그인,로그아웃 성공시 경로 변경
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
