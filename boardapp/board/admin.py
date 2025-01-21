@@ -12,3 +12,8 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ("subject", "created_at")
     search_fields = ["subject"]
     inlines = [AnswerInline]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("content", "created_at")

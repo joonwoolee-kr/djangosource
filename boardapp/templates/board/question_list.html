@@ -1,21 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
+{% load board_filter %}
 {% block title %}
   <title>Board</title>
 {% endblock title %}
 {% block content %}
   <div class="row justify-content-between">
     <div class="col-md-3">
-      <select name="" id="" class="form-select so">
-        <option value="recent">최신순</option>
-        <option value="recommend">추천순</option>
-        <option value="popular">인기순</option>
+      <select name="" id="" class="form-select so" value="">
+        <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
+        <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
+        <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
       </select>
     </div>
     <div class="col-md-8">
-      <div class="input-group mb-3">
-        <input type="text" name="keyword" id="" class="form-control">
-        <button class="btn btn-outline-secondary">찾기</button>
-      </div>
+        <div class="input-group mb-3">
+          <input type="text" name="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+          <button type="button" class="btn btn-outline-secondary">찾기</button>
+        </div>
     </div>
   </div>
   <div class="my-3">
@@ -30,12 +32,19 @@
         </tr>
       </thead>
       <tbody>
+        {% comment %} 
+        questions.paginator.count: 전체 게시물 개수
+        questions.start_index: 1부터 시작
+        forloop.counter0: 현재 페이지에서 0부터 인덱스 시작
+        {% endcomment %}
         {% for question in questions %}
           <tr>
-            <th>{{question.id}}</th>
+            {% comment %} <th>{{questions.paginator.count|sub:questions.start_index|sub:forloop.counter0|add:1}}</th> {% endcomment %}
+            <th>{{questions.number|index:forloop.counter}}</th>
             <td>
               <span class="badge text-bg-warning px-2 py-1">
                 <!-- 질문 추천수 -->
+                 {{question.voter.count}}
               </span>
             </td>
             <td>
@@ -85,4 +94,12 @@
     </nav>
     <a href="{% url "board:create" %}" class="btn btn-primary">질문등록</a>
   </div>
+  <form action="{% url "board:index" %}" method="get" id="actionForm">
+    <input type="hidden" name="page" id="page" class="form-control" value="{{page}}">
+    <input type="hidden" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+    <input type="hidden" name="so" id="so" class="form-control" value="{{so|default_if_none:''}}">
+  </form>
 {% endblock content %}
+{% block script %}
+<script src="{% static "js/list.js" %}"></script>
+{% endblock script %}
